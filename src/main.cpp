@@ -58,7 +58,7 @@ int main(void)
 
     LoRaMessage message;
     message.addUint8( ((int) (voltage * 150 / 3) )); // 0V - 3V --> 0 - 150 (0.02V resolution)
-    message.addUint16(temperature * 100);
+    message.addUint16(((int)(temperature * 100)));    // first cast float to integer, then to uint16 (direct cast from double to uint16 fails)
     message.addUint16(humidity * 100);
     message.addUint16(pressure * 10);
 
