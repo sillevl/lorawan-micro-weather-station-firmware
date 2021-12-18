@@ -1,0 +1,29 @@
+name: CMake
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    container:
+      image: ghcr.io/armmbed/mbed-os-env:master-latest
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: build-example
+      run: |
+          set -e
+          mbed deploy
+          mbed compile -t GCC_ARM -m NUCLEO_L432KC
+
+
+      
