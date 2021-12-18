@@ -1,14 +1,10 @@
-name: CMake
+name: Mbed Compile
 
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
 
 jobs:
   build:
@@ -24,6 +20,11 @@ jobs:
           set -e
           mbed deploy
           mbed compile -t GCC_ARM -m NUCLEO_L432KC
+          
+    - uses: actions/upload-artifact@v2
+      with:
+        name: binaries
+        path: BUILD/NUCLEO_L432KC/GCC_ARM/*{.bin,.hex}
 
 
       
