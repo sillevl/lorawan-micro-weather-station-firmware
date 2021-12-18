@@ -11,6 +11,8 @@ jobs:
     container:
       image: ghcr.io/armmbed/mbed-os-env:master-latest
     runs-on: ubuntu-latest
+    env:
+      TARGET: NUCLEO_L432KC
 
     steps:
     - uses: actions/checkout@v2
@@ -19,12 +21,12 @@ jobs:
       run: |
           set -e
           mbed deploy
-          mbed compile -t GCC_ARM -m NUCLEO_L432KC
+          mbed compile -t GCC_ARM -m ${{ env.TARGET }}
           
     - uses: actions/upload-artifact@v2
       with:
         name: binaries
-        path: BUILD/NUCLEO_L432KC/GCC_ARM/*{.bin,.hex}
+        path: BUILD/${{ env.TARGET }}/GCC_ARM/*{.bin,.hex}
 
 
       
